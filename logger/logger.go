@@ -32,6 +32,7 @@ func init() {
 }
 
 func Setup(logRetentionDuration int) {
+	LogRetentionDuration = logRetentionDuration
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 	var logger io.Writer
 	logsDirectory := "logs/"
@@ -45,7 +46,7 @@ func Setup(logRetentionDuration int) {
 			log.Println(err)
 		}
 		var validLogFileNames []string
-		for duration := range logRetentionDuration {
+		for duration := range LogRetentionDuration {
 			validLogFileNames = append(validLogFileNames,
 				logsDirectory+"app-"+
 					time.Now().Add(-time.Duration(duration*24)*time.Hour).
