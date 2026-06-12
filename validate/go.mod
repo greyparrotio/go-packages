@@ -1,4 +1,4 @@
-module github.com/greyparrot.io/go-packages/validate
+module github.com/greyparrotio/go-packages/validate
 
 go 1.26.4
 

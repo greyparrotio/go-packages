@@ -1,6 +1,5 @@
 package validate
 
-
 import (
 	"fmt"
 	"reflect"
