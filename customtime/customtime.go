@@ -29,4 +29,7 @@ func (customTime CustomTime) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+
+	customTime.Time = parsedTime
+	return nil
 }
