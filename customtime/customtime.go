@@ -30,6 +30,6 @@ func (customTime CustomTime) UnmarshalJSON(b []byte) error {
 		return err
 	}
 
-	customTime.Time = CustomTime(parsedTime)
+	customTime = CustomTime(parsedTime)
 	return nil
 }
