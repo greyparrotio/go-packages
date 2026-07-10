@@ -72,6 +72,7 @@ func Setup(logRetentionDuration int) {
 			Filename:  fileName,
 			Compress:  false,
 			LocalTime: true,
+			MaxSize:   1024,
 		}
 	}
 	log.SetOutput(logger)
