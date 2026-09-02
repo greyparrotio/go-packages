@@ -2,6 +2,7 @@ package validate
 
 import (
 	"fmt"
+	"net/url"
 	"reflect"
 	"strings"
 
@@ -19,6 +20,26 @@ func ValidateObject(object any) (string, error) {
 		}
 		return name
 	})
+
+	// Rejects any string containing markup-enabling characters
+	val.RegisterValidation("nohtml", func(fl validator.FieldLevel) bool {
+		return !strings.ContainsAny(fl.Field().String(), "<>")
+	})
+
+	// This is for fields that ARE supposed to be URLs: restrict to http/https,
+	// blocking javascript.
+	val.RegisterValidation("safeurl", func(fl validator.FieldLevel) bool {
+		raw := fl.Field().String()
+		if raw == "" {
+			return true // pair with `omitempty` or `required` for presence
+		}
+		u, err := url.Parse(raw)
+		if err != nil {
+			return false
+		}
+		return u.Scheme == "http" || u.Scheme == "https"
+	})
+
 	err := val.Struct(object)
 	if err != nil {
 		var messages string
