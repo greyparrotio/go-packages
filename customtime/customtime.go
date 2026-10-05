@@ -20,7 +20,7 @@ func (customTime CustomTime) MarshalJSON() ([]byte, error) {
 
 func (customTime CustomTime) UnmarshalJSON(b []byte) error {
 	s := string(b)
-	if s == "null" {
+	if s == "null" || s == `""` {
 		return nil
 	}
 
